@@ -1,6 +1,4 @@
 .vscode
-.env
 pruebas.js
 .gitignore
-español.txt
 node_modules

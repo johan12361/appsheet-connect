@@ -1,0 +1,17 @@
+{
+  "name": "appsheet-connect",
+  "version": "0.0.1",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "9.1.0",
+    "standard": "17.1.0"
+  },
+  "keywords": [],
+  "author": "Johan S",
+  "license": "MIT",
+  "description": ""
+}

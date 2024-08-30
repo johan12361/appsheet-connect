@@ -7,3 +7,4 @@ temp
 API_AppSheet.mjs
 pruebas.js
 pnpm-lock.yaml
+.gitignore

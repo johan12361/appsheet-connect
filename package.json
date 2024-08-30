@@ -1,6 +1,6 @@
 {
   "name": "appsheet-connect",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "main": "./src/index.js",
   "type": "module",
   "types": "index.d.ts",

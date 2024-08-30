@@ -1,11 +1,6 @@
 .vscode
 .env
-*_sessions
-node_modules
-*.log
-temp
-API_AppSheet.mjs
 pruebas.js
-pnpm-lock.yaml
 .gitignore
-.npmignore
+español.txt
+node_modules

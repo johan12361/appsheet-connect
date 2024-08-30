@@ -6,11 +6,13 @@ declare module 'appsheet-connect' {
   export class AppSheetUser {
     /**
      * Creates an instance of the AppSheetUser class.
+     *
      * @param idApp - The ID of the application.
      * @param apiKey - The API key used for authentication.
-     * @param {boolean} [format=true] - Specifies whether to format the data. Defaults to true.
-     * For example, a value of 'Y' will be converted to `true`, and a value of 'N' will be converted to `false`.
-     * @param region - The region for the AppSheet API endpoint; defaults to 'global'.
+     * @param format - Specifies whether to format the data. Defaults to `true`.
+     *  For example, a value of 'Y' will be converted to `true`, and a value of 'N' will be converted to `false`.
+     * @param region - The region for the AppSheet API endpoint. Defaults to 'global'.
+     *  Possible values are 'global' (maps to 'www.appsheet.com') or 'ue' (maps to 'eu.appsheet.com').
      *
      * @throws Error Will throw an error if `region` is not 'global' or 'ue'.
      */
@@ -27,7 +29,7 @@ declare module 'appsheet-connect' {
    *
    * @param appSheetUser - An instance of `AppSheetUser` containing authentication details and configuration.
    * @param tableId - The ID of the table to fetch data from.
-   * @param rows - Optional. Filter criteria for the rows to fetch. Should be an object or an array of objects, or `null` to fetch all rows.
+   * @param rows - Optional. Filter criteria for the rows to fetch. Should be an object, an array of objects, or `null` to fetch all rows.
    * @param properties - Optional. Additional properties to include in the request.
    * @returns A Promise that resolves to the data fetched from the table, or `null` if an error occurred.
    */

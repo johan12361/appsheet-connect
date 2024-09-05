@@ -37,11 +37,11 @@ Extracts the file ID from a Google Drive URL.
 #### Example
 
 ```javascript
-import { getFileIdFromUrl } from 'google-drive-downloader'
+import { getFileIdFromUrl } from 'google-drive-downloader';
 
-const url = 'https://drive.google.com/file/d/1CwGEerIO-bunXA0e_yXySEmKNuSECytW/view?usp=sharing'
-const fileId = getFileIdFromUrl(url)
-console.log(fileId) // Outputs: 1CwGEerIO-bunXA0e_yXySEmKNuSECytW
+const url = 'https://drive.google.com/file/d/1CwGEerIO-bunXA0e_yXySEmKNuSECytW/view?usp=sharing';
+const fileId = getFileIdFromUrl(url);
+console.log(fileId); // Outputs: 1CwGEerIO-bunXA0e_yXySEmKNuSECytW
 ```
 
 ### `downloadFile`
@@ -66,16 +66,16 @@ Downloads a file from Google Drive and saves it to the specified directory with 
 #### Example
 
 ```javascript
-import { downloadFile } from 'google-drive-downloader'
+import { downloadFile } from 'google-drive-downloader';
 
-const fileId = '1CwGEerIO-bunXA0e_yXySEmKNuSECytW'
-const dirPath = './downloads'
-const filename = 'myfile'
-const extension = 'pdf'
+const fileId = '1CwGEerIO-bunXA0e_yXySEmKNuSECytW';
+const dirPath = './downloads';
+const filename = 'myfile';
+const extension = 'pdf';
 
 downloadFile(fileId, dirPath, filename, extension)
-  .then((filePath) => console.log(`File downloaded and saved to: ${filePath}`))
-  .catch((error) => console.error('Download failed:', error))
+  .then(filePath => console.log(`File downloaded and saved to: ${filePath}`))
+  .catch(error => console.error('Download failed:', error));
 ```
 
 ## Contributing

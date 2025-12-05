@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { toObj } from '../format/toObj.mjs'
 
 /**
@@ -39,21 +40,26 @@ export async function getTable(appSheetUser, tableId, rows = null, properties = 
     Properties: properties,
     Rows: filter === null ? [] : filter
   }
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(body)
-    })
 
-    if (!response.ok) {
-      throw new Error(`Request failed: ${response.statusText}`)
+  const maxRetries = 10
+  let attempts = 0
+
+  while (attempts < maxRetries) {
+    try {
+      const response = await axios.post(url, body, { headers })
+      const data = format ? toObj(response.data) : response.data
+      return data
+    } catch (error) {
+      if (error.response && error.response.status === 429 && attempts < maxRetries - 1) {
+        attempts++
+        console.warn(`Error 429: Reintentando en 1 segundo... (Intento ${attempts}/${maxRetries})`)
+        await new Promise(resolve => setTimeout(resolve, 1000))
+      } else {
+        console.error('Error:', error.message)
+        return null
+      }
     }
-    const res = await response.json()
-    const data = format ? toObj(res) : res
-    return data
-  } catch (error) {
-    console.error('Error:', error)
-    return null
   }
+
+  return null
 }

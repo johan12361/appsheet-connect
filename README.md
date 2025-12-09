@@ -1,82 +1,130 @@
-# Google Drive Downloader
+# AppSheet Connect
 
-`google-drive-downloader` is a library for interacting with Google Drive files. It includes functions to download files from Google Drive and extract file IDs from Google Drive URLs.
+> ⚠️ **DEPRECATED**: This package has been deprecated. Please use [`appsheet-api`](https://www.npmjs.com/package/appsheet-api) instead.
+>
+> **Important**: The packages are **NOT compatible**. You will need to completely rewrite your code using the new API. There is no migration documentation available.
+
+---
+
+`appsheet-connect` is a library for interacting with the AppSheet API. It allows you to perform CRUD operations (create, read, update, and delete) on tables within AppSheet applications.
 
 ## Installation
 
 To install the library, you can use npm:
 
 ```bash
-npm install google-drive-downloader
+npm install appsheet-connect
 ```
 
 Or with yarn:
 
 ```bash
-yarn add google-drive-downloader
+yarn add appsheet-connect
 ```
 
 ## Usage
 
-### `getFileIdFromUrl`
+### `AppSheetUser` Class
 
-Extracts the file ID from a Google Drive URL.
+The `AppSheetUser` class represents a user for the AppSheet API and is used to authenticate requests.
 
-#### Parameters
+#### Constructor
 
-- `url` (`string`): The Google Drive URL from which to extract the file ID.
+```typescript
+constructor(
+  idApp: string,
+  apiKey: string,
+  format?: boolean,
+  region?: 'global' | 'ue'
+)
+```
 
-#### Returns
-
-- `string`: The extracted file ID.
-
-#### Throws
-
-- `Error` if the provided URL is not a valid string or if the file ID cannot be extracted from the URL.
+- `idApp` (string): The application ID.
+- `apiKey` (string): The API key used for authentication.
+- `format` (boolean, optional): Specifies whether to format data information. Default is `true`. Examples: a value of `'Y'` will be converted to `true`, and a value of `'N'` will be converted to `false`.
+- `region` ('global' | 'ue', optional): The region for the AppSheet API endpoint. Can be `'global'` (equivalent to `'www.appsheet.com'`) or `'ue'` (equivalent to `'eu.appsheet.com'`). Default is `'global'`.
 
 #### Example
 
-```javascript
-import { getFileIdFromUrl } from 'google-drive-downloader';
+```typescript
+import { AppSheetUser } from 'appsheet-connect'
 
-const url = 'https://drive.google.com/file/d/1CwGEerIO-bunXA0e_yXySEmKNuSECytW/view?usp=sharing';
-const fileId = getFileIdFromUrl(url);
-console.log(fileId); // Outputs: 1CwGEerIO-bunXA0e_yXySEmKNuSECytW
+const user = new AppSheetUser('my-app-id', 'my-api-key', true, 'ue')
 ```
 
-### `downloadFile`
+### Functions
 
-Downloads a file from Google Drive and saves it to the specified directory with a given filename and extension.
+#### `getTable`
 
-#### Parameters
+Retrieves data from a table in the AppSheet application.
 
-- `fileId` (`string`): The ID of the file to download from Google Drive.
-- `dirPath` (`string`): The directory path where the file should be saved.
-- `filename` (`string`): The base name of the file (excluding the extension).
-- `extension` (`string`): The file extension (e.g., 'pdf', 'jpg').
-
-#### Returns
-
-- `Promise<string | null>`: A promise that resolves to the full path of the saved file on success, or `null` if an error occurs.
-
-#### Throws
-
-- `Error` if the provided parameters are invalid or if an error occurs during the download or save process.
-
-#### Example
-
-```javascript
-import { downloadFile } from 'google-drive-downloader';
-
-const fileId = '1CwGEerIO-bunXA0e_yXySEmKNuSECytW';
-const dirPath = './downloads';
-const filename = 'myfile';
-const extension = 'pdf';
-
-downloadFile(fileId, dirPath, filename, extension)
-  .then(filePath => console.log(`File downloaded and saved to: ${filePath}`))
-  .catch(error => console.error('Download failed:', error));
+```typescript
+export function getTable(
+  appSheetUser: AppSheetUser,
+  tableId: string,
+  rows?: object | object[] | null,
+  properties?: Record<string, any>
+): Promise<any>
 ```
+
+- `appSheetUser` (AppSheetUser): Instance of `AppSheetUser` with authentication details and settings.
+- `tableId` (string): The ID of the table from which to retrieve data.
+- `rows` (object | object[] | null, optional): Filter criteria for the rows to retrieve. Can be an object, an array of objects, or `null` to retrieve all rows.
+- `properties` (Record<string, any>, optional): Additional properties to include in the request.
+
+#### `patchTable`
+
+Updates data in a table in the AppSheet application.
+
+```typescript
+export function patchTable(
+  appSheetUser: AppSheetUser,
+  tableId: string,
+  data: object | object[],
+  properties?: Record<string, any>
+): Promise<any>
+```
+
+- `appSheetUser` (AppSheetUser): Instance of `AppSheetUser` with authentication details and settings.
+- `tableId` (string): The ID of the table to update.
+- `data` (object | object[]): Data to update in the table. Can be an object or an array of objects.
+- `properties` (Record<string, any>, optional): Additional properties to include in the request.
+
+#### `deleteTable`
+
+Deletes data from a table in the AppSheet application.
+
+```typescript
+export function deleteTable(
+  appSheetUser: AppSheetUser,
+  tableId: string,
+  data: object | object[],
+  properties?: Record<string, any>
+): Promise<any>
+```
+
+- `appSheetUser` (AppSheetUser): Instance of `AppSheetUser` with authentication details and settings.
+- `tableId` (string): The ID of the table from which to delete data.
+- `data` (object | object[]): Data to delete from the table. Can be an object or an array of objects.
+- `properties` (Record<string, any>, optional): Additional properties to include in the request.
+
+#### `postTable`
+
+Adds data to a table in the AppSheet application.
+
+```typescript
+export function postTable(
+  appSheetUser: AppSheetUser,
+  tableId: string,
+  data: object | object[],
+  properties?: Record<string, any>
+): Promise<any>
+```
+
+- `appSheetUser` (AppSheetUser): Instance of `AppSheetUser` with authentication details and settings.
+- `tableId` (string): The ID of the table to which to add data.
+- `data` (object | object[]): Data to add to the table. Can be an object or an array of objects.
+- `properties` (Record<string, any>, optional): Additional properties to include in the request.
 
 ## Contributing
 
@@ -84,4 +132,4 @@ Contributions are welcome. Please open an issue or a pull request on GitHub to d
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for more details.

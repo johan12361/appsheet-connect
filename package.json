@@ -1,6 +1,7 @@
 {
   "name": "appsheet-connect",
-  "version": "0.1.0",
+  "version": "0.2.1",
+  "deprecated": "Este paquete ha sido deprecado. Por favor usa 'appsheet-api' en su lugar: https://www.npmjs.com/package/appsheet-api",
   "main": "./src/index.js",
   "type": "module",
   "types": "index.d.ts",
